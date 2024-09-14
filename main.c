@@ -4,6 +4,7 @@
 #include "testFunctions.h"
 #include "moveFunctions.h"
 #include "bestMove.h"
+#include "displayFunctions.h"
 
 void displayBoard(char board[NUM_ROWS][NUM_COLS]);
 
@@ -31,17 +32,6 @@ int main(void)
   // create a tile out of struct
   // tile struct: char piece
 }
-void displayBoard(char board[NUM_ROWS][NUM_COLS])
-{
-  for (int r = 0; r < NUM_ROWS; r++)
-  {
-    for (int c = 0; c < NUM_COLS; c++)
-    {
-      printf("%c ", board[r][c]);
-    }
-    printf("\n");
-  }
-}
 
 void playGame()
 {
@@ -62,6 +52,13 @@ void playGame()
   //                               {'*', '*', '*', '*', '*', '*', '*', '*'},
   //                               {'*', '*', '*', '*', '*', '*', '*', '*'}};
 
+  printf("\nWelcome to my Othello terminal game! You (the Black player) will be playing against an AI (the White player). To read the rules of the game Othello, go here: https://www.worldothello.org/about/about-othello/othello-rules/official-rules/english. Press enter to start the game:");
+  char input;
+  while (input != '\n')
+  {
+    scanf("%c", &input);
+  }
+  printf("\nStarting Board State:\n\n");
   displayBoard(board);
 
   int i = 0;
@@ -69,15 +66,18 @@ void playGame()
   {
     char currColor;
     char *colorString;
+    char *playerString;
     if (i % 2 == 0)
     {
       currColor = 'b';
       colorString = "Black";
+      playerString = "your";
     }
     else
     {
       currColor = 'w';
       colorString = "White";
+      playerString = "AI\'s";
     }
 
     if (!hasPossibleMove(board, currColor))
@@ -89,10 +89,12 @@ void playGame()
 
     if (i % 2 == 0)
     {
-      printf("It is now %s\'s turn. Please input the row and column values of the tile you wish to place, separated by a space.\n", colorString);
+      printf("\nIt is now your turn. Please place a %s tile on the board by inputting the row and column values of the location you wish to place the tile, separated by a space (Exapmple:4 3).\n", colorString);
       int row;
       int col;
       scanf("%d %d", &row, &col);
+      row--;
+      col--;
 
       while (!makeMove(board, currColor, row, col) && i % 2 == 0)
       {
@@ -108,6 +110,7 @@ void playGame()
     }
 
     printf("\n");
+    printf("Board after %s\'s move (%s move):\n\n", colorString, playerString);
     displayBoard(board);
     printf("\n");
     i++;
@@ -119,11 +122,11 @@ void playGame()
   printf("White has %d tiles. Black has %d tiles.\n", whiteScore, blackScore);
   if (whiteScore > blackScore)
   {
-    printf("White is the winner!");
+    printf("White is the winner! The AI beat you :(");
   }
   else if (blackScore > whiteScore)
   {
-    printf("Black is the winner!");
+    printf("Black is the winner! You won :D");
   }
   else
   {
