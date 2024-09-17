@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "constants.h"
+// #include "constants.h"
 #include "testFunctions.h"
 #include "moveFunctions.h"
 #include "bestMove.h"

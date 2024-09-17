@@ -1,6 +1,6 @@
 #define NUM_ROWS 8
 
-#define NUM_COLS 8 
+#define NUM_COLS 8
 
 #define NUM_DIRECTIONS 8
 
